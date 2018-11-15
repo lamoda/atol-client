@@ -3,6 +3,11 @@ ATOL API v3/v4 client for PHP
 
 https://online.atol.ru/
 
+[![Build Status](https://travis-ci.org/lamoda/atol-client.svg?branch=master)](https://travis-ci.org/lamoda/atol-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lamoda/atol-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lamoda/atol-client/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/lamoda/atol-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lamoda/atol-client/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/lamoda/atol-client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/lamoda/atol-client/build-status/master)
+
 ## Installation
 
 Usage is as simple as 
