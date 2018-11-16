@@ -1,4 +1,4 @@
-# ATOL PHP Client bundle
+# ATOL PHP Client
 ATOL API v3/v4 client for PHP
 
 https://online.atol.ru/
