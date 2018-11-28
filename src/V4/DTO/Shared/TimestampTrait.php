@@ -11,7 +11,7 @@ use JMS\Serializer\Annotation as Serializer;
 trait TimestampTrait
 {
     /**
-     * @Serializer\Type("DateTime<'d.m.Y G:i:s', 'Europe/Moscow'>")
+     * @Serializer\Type("DateTime<'d.m.Y H:i:s', 'Europe/Moscow'>")
      *
      * @var \DateTime
      */

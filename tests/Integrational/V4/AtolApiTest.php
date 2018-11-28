@@ -54,17 +54,17 @@ final class AtolApiTest extends AtolApiTestCase
 
     protected function getLogin(): string
     {
-        return 'v4-online-atol-ru';
+        return $this->login;
     }
 
     protected function getPassword(): string
     {
-        return 'iGFFuihss';
+        return $this->password;
     }
 
     protected function getGroupCode(): string
     {
-        return 'v4-online-atol-ru_4179';
+        return $this->groupCode;
     }
 
     protected function setUpTestGetToken(): void
