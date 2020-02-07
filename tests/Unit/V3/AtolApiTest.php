@@ -12,13 +12,15 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\Constraint\Callback;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @group unit
  * @covers \Lamoda\AtolClient\V3\AtolApi
  */
-class AtolApiTest extends \PHPUnit_Framework_TestCase
+class AtolApiTest extends TestCase
 {
     /**
      * @var ClientInterface | \PHPUnit_Framework_MockObject_MockObject
@@ -212,9 +214,9 @@ class AtolApiTest extends \PHPUnit_Framework_TestCase
     /**
      * @param $clientRequest
      *
-     * @return \PHPUnit_Framework_Constraint_Callback
+     * @return Callback
      */
-    private function sameRequestCallback(Request $clientRequest): \PHPUnit_Framework_Constraint_Callback
+    private function sameRequestCallback(Request $clientRequest): Callback
     {
         return $this->callback(function (Request $actualRequest) use ($clientRequest) {
             $expectBodyStream = $clientRequest->getBody();

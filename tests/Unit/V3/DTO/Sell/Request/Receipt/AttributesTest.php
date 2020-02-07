@@ -4,12 +4,13 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\DTO\Sell\Request\Receipt;
 
 use Lamoda\AtolClient\Tests\Helper\ProtectedPropertiesTrait;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Attributes;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Attributes
  * @group unit
  */
-class AttributesTest extends \PHPUnit_Framework_TestCase
+class AttributesTest extends TestCase
 {
     use ProtectedPropertiesTrait;
     private $propertiesWithGetters = ['email', 'phone'];

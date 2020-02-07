@@ -4,12 +4,13 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\DTO\Sell\Request\Receipt;
 
 use Lamoda\AtolClient\Tests\Helper\ProtectedPropertiesTrait;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Payment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Payment
  * @group unit
  */
-class PaymentTest extends \PHPUnit_Framework_TestCase
+class PaymentTest extends TestCase
 {
     use ProtectedPropertiesTrait;
 

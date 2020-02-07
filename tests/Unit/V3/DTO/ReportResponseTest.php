@@ -7,12 +7,13 @@ use Lamoda\AtolClient\V3\DTO\General\Error;
 use Lamoda\AtolClient\V3\DTO\Report\Response\Payload;
 use Lamoda\AtolClient\V3\DTO\Report\Response\Status;
 use Lamoda\AtolClient\V3\DTO\ReportResponse;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\ReportResponse
  * @group unit
  */
-class ReportResponseTest extends \PHPUnit_Framework_TestCase
+class ReportResponseTest extends TestCase
 {
     use ProtectedPropertiesTrait;
 
@@ -44,7 +45,7 @@ class ReportResponseTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public static function assertSame($expected, $actual, $message = '')
+    public static function assertSame($expected, $actual, string $message = ''): void
     {
         parent::assertEquals($expected, $actual, $message = '');
     }

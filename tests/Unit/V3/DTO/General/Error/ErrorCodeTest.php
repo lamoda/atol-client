@@ -3,12 +3,13 @@
 namespace Lamoda\AtolClient\Tests\Unit\V3\DTO\General\Error;
 
 use Lamoda\AtolClient\V3\DTO\General\Error\ErrorCode;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group unit
  * @covers \Lamoda\AtolClient\V3\DTO\General\Error\ErrorCode
  */
-class ErrorCodeTest extends \PHPUnit_Framework_TestCase
+class ErrorCodeTest extends TestCase
 {
     /**
      * @param int $value

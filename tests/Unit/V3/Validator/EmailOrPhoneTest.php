@@ -3,12 +3,13 @@
 namespace Lamoda\AtolClient\Tests\Unit\V3\Validator;
 
 use Lamoda\AtolClient\V3\Validator\EmailOrPhone;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group unit
  * @covers \Lamoda\AtolClient\V3\Validator\EmailOrPhone
  */
-class EmailOrPhoneTest extends \PHPUnit_Framework_TestCase
+class EmailOrPhoneTest extends TestCase
 {
     public function testGetters()
     {

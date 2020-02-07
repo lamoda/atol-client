@@ -13,7 +13,7 @@ trait ProtectedPropertiesTrait
      *
      * @return mixed
      */
-    abstract public static function assertSame($expected, $actual, $message = '');
+    abstract public static function assertSame($expected, $actual, string $message = ''): void;
 
     /**
      * Set values of protected properties.

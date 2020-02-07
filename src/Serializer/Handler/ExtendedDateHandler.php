@@ -2,13 +2,17 @@
 
 namespace Lamoda\AtolClient\Serializer\Handler;
 
-use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\GraphNavigatorInterface;
 use JMS\Serializer\Handler\DateHandler;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\Visitor\DeserializationVisitorInterface;
+use JMS\Serializer\Visitor\SerializationVisitorInterface;
 
 /**
  * Add support of different formats for DateTime and DateInterval JMS type.
  */
-class ExtendedDateHandler extends DateHandler
+class ExtendedDateHandler implements SubscribingHandlerInterface
 {
     private static $additionalFormats = [
         'atol_client',
@@ -19,17 +23,25 @@ class ExtendedDateHandler extends DateHandler
         'DateInterval',
     ];
 
+    /** @var DateHandler there is no DI */
+    private $dateHandler;
+
+    public function __construct()
+    {
+        $this->dateHandler = new DateHandler();
+    }
+
     /**
      * {@inheritdoc}
      */
     public static function getSubscribingMethods()
     {
-        $methods = parent::getSubscribingMethods();
+        $methods = DateHandler::getSubscribingMethods();
 
         foreach (self::$additionalFormats as $format) {
             $methods[] = [
                 'type' => 'DateTime',
-                'direction' => GraphNavigator::DIRECTION_DESERIALIZATION,
+                'direction' => GraphNavigatorInterface::DIRECTION_DESERIALIZATION,
                 'format' => $format,
                 'method' => 'deserializeDateTimeFromJson',
             ];
@@ -38,12 +50,36 @@ class ExtendedDateHandler extends DateHandler
                 $methods[] = [
                     'type' => $type,
                     'format' => $format,
-                    'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
+                    'direction' => GraphNavigatorInterface::DIRECTION_SERIALIZATION,
                     'method' => 'serialize' . $type,
                 ];
             }
         }
 
         return $methods;
+    }
+
+    public function serializeDateTime(SerializationVisitorInterface $visitor, \DateTime $date, array $type, SerializationContext $context)
+    {
+        return $this->dateHandler->serializeDateTime($visitor, $date, $type, $context);
+    }
+
+    public function serializeDateTimeImmutable(
+        SerializationVisitorInterface $visitor,
+        \DateTimeImmutable $date,
+        array $type,
+        SerializationContext $context
+    ) {
+        return $this->dateHandler->serializeDateTimeImmutable($visitor, $date, $type, $context);
+    }
+
+    public function serializeDateInterval(SerializationVisitorInterface $visitor, \DateInterval $date, array $type, SerializationContext $context)
+    {
+        return $this->dateHandler->serializeDateInterval($visitor, $date, $type, $context);
+    }
+
+    public function deserializeDateTimeFromJson(DeserializationVisitorInterface $visitor, $data, array $type): ?\DateTimeInterface
+    {
+        return $this->dateHandler->deserializeDateTimeFromJson($visitor, $data, $type);
     }
 }

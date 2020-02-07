@@ -3,6 +3,7 @@
 namespace Lamoda\AtolClient\Tests\Unit\Exception;
 
 use Lamoda\AtolClient\Exception\ValidationException;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 
@@ -10,7 +11,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
  * @group unit
  * @covers \Lamoda\AtolClient\Exception\ValidationException
  */
-class ValidationExceptionTest extends \PHPUnit_Framework_TestCase
+class ValidationExceptionTest extends TestCase
 {
     public function testBecauseOfValidationErrors()
     {

@@ -4,6 +4,7 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\Validator;
 
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Attributes;
 use Lamoda\AtolClient\V3\Validator\EmailOrPhoneValidator;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
  * @group unit
  * @covers \Lamoda\AtolClient\V3\Validator\EmailOrPhoneValidator
  */
-class EmailOrPhoneValidatorTest extends \PHPUnit_Framework_TestCase
+class EmailOrPhoneValidatorTest extends TestCase
 {
     public function testInvalid()
     {

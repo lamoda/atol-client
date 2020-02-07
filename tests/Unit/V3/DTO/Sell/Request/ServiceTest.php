@@ -4,12 +4,13 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\DTO\Sell\Request;
 
 use Lamoda\AtolClient\Tests\Helper\ProtectedPropertiesTrait;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Service;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\Sell\Request\Service
  * @group unit
  */
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends TestCase
 {
     use ProtectedPropertiesTrait;
 
