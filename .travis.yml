@@ -1,6 +1,6 @@
 language: php
 
-# php 7.1 doesn't supports by jms/serialize
+## php 7.1 doesn't supports by jms/serialize
 php:
 - 7.2
 - 7.3
