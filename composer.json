@@ -11,8 +11,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.2",
-        "jms/serializer": "^3.4",
+        "php": "^7.1",
+        "jms/serializer": "^1.11 || ^2.0 || ^3.0",
         "symfony/validator": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "paillechat/php-enum": "~1.1.0",
@@ -35,7 +35,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.2"
+            "php": "7.1"
         }
     }
 }
