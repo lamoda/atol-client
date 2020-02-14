@@ -4,6 +4,7 @@ namespace Lamoda\AtolClient\Tests\Unit\Converter;
 
 use Lamoda\AtolClient\Converter\ObjectConverter;
 use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -15,12 +16,12 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ObjectConverterTest extends TestCase
 {
     /**
-     * @var SerializerInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var SerializerInterface | MockObject
      */
     private $serializer;
 
     /**
-     * @var ValidatorInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var ValidatorInterface | MockObject
      */
     private $validator;
 

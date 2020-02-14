@@ -22,6 +22,7 @@ use Lamoda\AtolClient\V3\DTO\Sell\Request\Service;
 use Lamoda\AtolClient\V3\DTO\SellRequest;
 use Lamoda\AtolClient\V3\DTO\SellResponse;
 use Paillechat\Enum\Exception\EnumException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
@@ -32,7 +33,7 @@ class AtolApiTest extends TestCase
      */
     private $api;
     /**
-     * @var ClientInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var ClientInterface | MockObject
      */
     private $client;
 
@@ -201,7 +202,7 @@ JSON
     /**
      * @param string $body
      *
-     * @internal param ClientInterface|\PHPUnit_Framework_MockObject_MockObject $client
+     * @internal param ClientInterface|MockObject $client
      */
     private function setClientResponseText(string $body): void
     {

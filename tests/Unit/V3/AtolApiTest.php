@@ -13,6 +13,7 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\Request;
 use JMS\Serializer\SerializerInterface;
 use PHPUnit\Framework\Constraint\Callback;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
@@ -23,12 +24,12 @@ use Psr\Http\Message\ResponseInterface;
 class AtolApiTest extends TestCase
 {
     /**
-     * @var ClientInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var ClientInterface | MockObject
      */
     private $client;
 
     /**
-     * @var SerializerInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var SerializerInterface | MockObject
      */
     private $converter;
 

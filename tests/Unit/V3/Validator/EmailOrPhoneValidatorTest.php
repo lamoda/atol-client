@@ -4,6 +4,7 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\Validator;
 
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Attributes;
 use Lamoda\AtolClient\V3\Validator\EmailOrPhoneValidator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -20,7 +21,7 @@ class EmailOrPhoneValidatorTest extends TestCase
         $context = $this->mockContext();
         $constraint = $this->mockConstraint();
         $violation = $this->createMock(ConstraintViolationBuilderInterface::class);
-        $constraint->message = '123';
+        $constraint->method('__get')->with('message')->willReturn('123');
 
         $context
             ->expects($this->once())
@@ -70,7 +71,7 @@ class EmailOrPhoneValidatorTest extends TestCase
     }
 
     /**
-     * @return Attributes|\PHPUnit_Framework_MockObject_MockObject
+     * @return Attributes|MockObject
      */
     private function mockAttributes()
     {
@@ -78,7 +79,7 @@ class EmailOrPhoneValidatorTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|ExecutionContextInterface
+     * @return MockObject|ExecutionContextInterface
      */
     private function mockContext()
     {
@@ -86,7 +87,7 @@ class EmailOrPhoneValidatorTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|Constraint
+     * @return MockObject|Constraint
      */
     private function mockConstraint()
     {
