@@ -5,12 +5,13 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\DTO;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Service;
 use Lamoda\AtolClient\V3\DTO\SellRequest;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\SellRequest
  * @group unit
  */
-class SellRequestTest extends \PHPUnit_Framework_TestCase
+class SellRequestTest extends TestCase
 {
     /**
      * @dataProvider dataProvider

@@ -4,12 +4,13 @@ namespace Lamoda\AtolClient\Tests\Unit\Exception;
 
 use Lamoda\AtolClient\Exception\TokenException;
 use Lamoda\AtolClient\V3\DTO\General\Error;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group unit
  * @covers \Lamoda\AtolClient\Exception\TokenException
  */
-class TokenExceptionTest extends \PHPUnit_Framework_TestCase
+class TokenExceptionTest extends TestCase
 {
     public function testBecauseException()
     {

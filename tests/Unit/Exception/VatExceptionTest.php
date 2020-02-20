@@ -3,12 +3,13 @@
 namespace Lamoda\AtolClient\Tests\Unit\Exception;
 
 use Lamoda\AtolClient\Exception\VatException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group unit
  * @covers \Lamoda\AtolClient\Exception\VatException
  */
-class VatExceptionTest extends \PHPUnit_Framework_TestCase
+class VatExceptionTest extends TestCase
 {
     public function testBecauseOfValidationErrors()
     {

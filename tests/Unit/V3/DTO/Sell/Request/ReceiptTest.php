@@ -6,12 +6,13 @@ use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Attributes;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Item;
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Payment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt
  * @group unit
  */
-class ReceiptTest extends \PHPUnit_Framework_TestCase
+class ReceiptTest extends TestCase
 {
     /**
      * @dataProvider dataProvider

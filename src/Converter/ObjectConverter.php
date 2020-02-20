@@ -64,15 +64,6 @@ class ObjectConverter
         return $this->serializeBodyObject($object);
     }
 
-    public function responseToArray($object)
-    {
-        try {
-            return $this->serializer->serialize($object, 'array');
-        } catch (\RuntimeException $exception) {
-            throw ParseException::becauseOfRuntimeException($exception, ParseException::RESPONSE);
-        }
-    }
-
     /**
      * @param string $class
      * @param string $json

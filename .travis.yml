@@ -1,19 +1,28 @@
 language: php
 
+## php 7.1 doesn't supports by jms/serialize
 php:
-- 7.1
 - 7.2
-- nightly
+- 7.3
+- 7.4
 
-sudo: false
+env:
+    matrix:
+        - DEPENDENCIES="high"
+        - DEPENDENCIES="low"
+    global:
+        - DEFAULT_COMPOSER_FLAGS="--prefer-dist --no-interaction --no-ansi --no-progress --no-suggest"
 
 matrix:
     fast_finish: true
-    allow_failures:
-    - php: nightly
 
 before_install:
 - travis_retry composer self-update
 
 install:
-- composer --prefer-dist install
+    - if [[ "$DEPENDENCIES" = 'high' ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update $DEFAULT_COMPOSER_FLAGS; fi
+    - if [[ "$DEPENDENCIES" = 'low' ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update $DEFAULT_COMPOSER_FLAGS --prefer-lowest; fi
+
+cache:
+    directories:
+        - $HOME/.composer/cache

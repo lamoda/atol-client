@@ -4,12 +4,13 @@ namespace Lamoda\AtolClient\Tests\Unit\Exception;
 
 use Lamoda\AtolClient\Exception\AtolErrorException;
 use Lamoda\AtolClient\V3\DTO\General\Error;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group unit
  * @covers \Lamoda\AtolClient\Exception\AtolErrorException
  */
-class AtolErrorExceptionTest extends \PHPUnit_Framework_TestCase
+class AtolErrorExceptionTest extends TestCase
 {
     public function testBecauseOfAtolError()
     {

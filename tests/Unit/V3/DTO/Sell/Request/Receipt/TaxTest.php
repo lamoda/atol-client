@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Lamoda\AtolClient\Tests\Unit\V3\DTO\Sell\Request\Receipt;
 
 use Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Item\Tax;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\Sell\Request\Receipt\Item\Tax
  *
  * @group unit
  */
-class TaxTest extends \PHPUnit_Framework_TestCase
+class TaxTest extends TestCase
 {
     /**
      * @param int $integer

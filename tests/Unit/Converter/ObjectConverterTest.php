@@ -4,6 +4,8 @@ namespace Lamoda\AtolClient\Tests\Unit\Converter;
 
 use Lamoda\AtolClient\Converter\ObjectConverter;
 use JMS\Serializer\SerializerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -11,15 +13,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * @group unit
  * @covers \Lamoda\AtolClient\Converter\ObjectConverter
  */
-class ObjectConverterTest extends \PHPUnit_Framework_TestCase
+class ObjectConverterTest extends TestCase
 {
     /**
-     * @var SerializerInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var SerializerInterface | MockObject
      */
     private $serializer;
 
     /**
-     * @var ValidatorInterface | \PHPUnit_Framework_MockObject_MockObject
+     * @var ValidatorInterface | MockObject
      */
     private $validator;
 
@@ -161,35 +163,5 @@ class ObjectConverterTest extends \PHPUnit_Framework_TestCase
             ->willReturn(1);
 
         $this->objectConverter->getResponseObject('class', 'json');
-    }
-
-    public function testResponseToArray()
-    {
-        $object = (object) [];
-        $array = [];
-
-        /* @see ObjectConverter::responseToArray() */
-        $this->serializer
-            ->expects($this->once())
-            ->method('serialize')
-            ->with($object, 'array')
-            ->willReturn($array);
-
-        $result = $this->objectConverter->responseToArray($object);
-        $this->assertSame($array, $result);
-    }
-
-    /**
-     * @expectedException \Lamoda\AtolClient\Exception\ParseException
-     * @expectedExceptionCode 2
-     */
-    public function testResponseToArrayParseException()
-    {
-        /* @see ObjectConverter::responseToArray() */
-        $this->serializer
-            ->method('serialize')
-            ->willThrowException(new \RuntimeException());
-
-        $this->objectConverter->responseToArray((object) []);
     }
 }

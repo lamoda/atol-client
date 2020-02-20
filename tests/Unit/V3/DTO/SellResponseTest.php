@@ -6,12 +6,13 @@ use Lamoda\AtolClient\Tests\Helper\ProtectedPropertiesTrait;
 use Lamoda\AtolClient\V3\DTO\General\Error;
 use Lamoda\AtolClient\V3\DTO\Sell\Response\Status;
 use Lamoda\AtolClient\V3\DTO\SellResponse;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\SellResponse
  * @group unit
  */
-class SellResponseTest extends \PHPUnit_Framework_TestCase
+class SellResponseTest extends TestCase
 {
     use ProtectedPropertiesTrait;
 
@@ -44,7 +45,7 @@ class SellResponseTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public static function assertSame($expected, $actual, $message = '')
+    public static function assertSame($expected, $actual, string $message = ''): void
     {
         parent::assertEquals($expected, $actual, $message = '');
     }

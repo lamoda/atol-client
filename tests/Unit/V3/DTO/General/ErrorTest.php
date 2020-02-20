@@ -4,12 +4,13 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\DTO\General;
 
 use Lamoda\AtolClient\Tests\Helper\ProtectedPropertiesTrait;
 use Lamoda\AtolClient\V3\DTO\General\Error;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\General\Error
  * @group unit
  */
-class ErrorTest extends \PHPUnit_Framework_TestCase
+class ErrorTest extends TestCase
 {
     use ProtectedPropertiesTrait;
 

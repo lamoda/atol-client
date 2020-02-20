@@ -5,12 +5,13 @@ namespace Lamoda\AtolClient\Tests\Unit\V3\DTO;
 use Lamoda\AtolClient\Tests\Helper\ProtectedPropertiesTrait;
 use Lamoda\AtolClient\V3\DTO\General\Error;
 use Lamoda\AtolClient\V3\DTO\GetTokenResponse;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Lamoda\AtolClient\V3\DTO\GetTokenResponse
  * @group unit
  */
-class GetTokenResponseTest extends \PHPUnit_Framework_TestCase
+class GetTokenResponseTest extends TestCase
 {
     use ProtectedPropertiesTrait;
 

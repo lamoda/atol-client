@@ -3,12 +3,13 @@
 namespace Lamoda\AtolClient\Tests\Unit\Exception;
 
 use Lamoda\AtolClient\Exception\ParseException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group unit
  * @covers \Lamoda\AtolClient\Exception\ParseException
  */
-class ParseExceptionTest extends \PHPUnit_Framework_TestCase
+class ParseExceptionTest extends TestCase
 {
     public function testBecauseOfRuntimeException()
     {
