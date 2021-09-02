@@ -15,6 +15,7 @@ use Lamoda\AtolClient\Serializer\Handler\EnumHandler;
 use Lamoda\AtolClient\Serializer\Handler\ExtendedDateHandler;
 use Lamoda\AtolClient\V3\AtolApi as AtolApiV3;
 use Lamoda\AtolClient\V4\AtolApi as AtolApiV4;
+use Lamoda\AtolClient\V5\AtolApi as AtolApiV5;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -51,6 +52,24 @@ final class AtolApiFactory
         );
 
         return new AtolApiV4(
+            $objectConvertor,
+            $client,
+            $options,
+            $baseUrl
+        );
+    }
+
+    public static function createV5(
+        ClientInterface $client,
+        array $options,
+        string $baseUrl
+    ): AtolApiV5 {
+        $objectConvertor = new ObjectConverter(
+            self::createSerializer(),
+            self::createValidator()
+        );
+
+        return new AtolApiV5(
             $objectConvertor,
             $client,
             $options,
