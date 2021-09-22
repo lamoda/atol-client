@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Lamoda\AtolClient\V4\DTO\Register;
 
+use JMS\Serializer\Annotation as Serializer;
+
 final class ReceivePaymentsOperator
 {
     /**

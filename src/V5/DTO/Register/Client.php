@@ -59,13 +59,19 @@ final class Client
     private function assertValidity(): void
     {
         /** @noinspection IsEmptyFunctionUsageInspection */
-        if (empty($this->email) && empty($this->phone)) {
+        if ($this->isEmpty($this->email) && $this->isEmpty($this->phone)) {
             throw new \InvalidArgumentException('Email and phone can not be empty at the same time');
         }
 
         $pattern = '/^\+?[0-9]{1,18}$/';
-        if (null !== $this->phone && $this->phone !== 'none' && !preg_match($pattern, $this->phone)) {
-            throw new \InvalidArgumentException('Phone is not valid');
+        if (!$this->isEmpty($this->phone) && !preg_match($pattern, $this->phone)) {
+            throw new \InvalidArgumentException('Phone is not valid. Phone: ' . $this->phone);
         }
     }
+
+    private function isEmpty($phoneOrEmail): bool
+    {
+        return empty($phoneOrEmail) || 'none' === $phoneOrEmail;
+    }
+
 }
