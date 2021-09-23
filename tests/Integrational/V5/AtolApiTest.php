@@ -87,6 +87,16 @@ final class AtolApiTest extends AtolApiTestCase
         // nothing
     }
 
+    protected function setUpTestSellCorrection(): void
+    {
+        // nothing
+    }
+
+    protected function setUpTestSellCorrectionWithInvalidRequest(): void
+    {
+        // nothing
+    }
+
     protected function setUpTestSellRefund(): void
     {
         // nothing

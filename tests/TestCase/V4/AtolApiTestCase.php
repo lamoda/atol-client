@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Lamoda\AtolClient\Tests\TestCase\V4;
 
 use Lamoda\AtolClient\V4\AtolApi;
+use Lamoda\AtolClient\V4\DTO\Correction\Correction;
+use Lamoda\AtolClient\V4\DTO\Correction\CorrectionInfo;
+use Lamoda\AtolClient\V4\DTO\Correction\CorrectionRequest;
+use Lamoda\AtolClient\V4\DTO\Correction\CorrectionType;
 use Lamoda\AtolClient\V4\DTO\GetToken\GetTokenRequest;
 use Lamoda\AtolClient\V4\DTO\Register\AgentInfo;
 use Lamoda\AtolClient\V4\DTO\Register\AgentType;
@@ -47,7 +51,11 @@ abstract class AtolApiTestCase extends TestCase
 
     abstract protected function setUpTestSell(): void;
 
+    abstract protected function setUpTestSellCorrection(): void;
+
     abstract protected function setUpTestSellWithInvalidRequest(): void;
+
+    abstract protected function setUpTestSellCorrectionWithInvalidRequest(): void;
 
     abstract protected function setUpTestSellRefund(): void;
 
@@ -126,6 +134,42 @@ abstract class AtolApiTestCase extends TestCase
         $request = $this->createInvalidRegisterRequest();
 
         $response = $this->api->sell($this->getGroupCode(), $token, $request);
+
+        $this->assertNotNull($response->getError());
+        $this->assertNull($response->getUuid());
+        $this->assertInstanceOf(\DateTimeInterface::class, $response->getTimestamp());
+        $this->assertEquals(RegisterStatus::FAIL(), $response->getStatus());
+
+        $error = $response->getError();
+
+        $this->assertEquals(32, $error->getCode());
+    }
+
+    final public function testSellCorrection(): void
+    {
+        $this->setUpTestSellCorrection();
+
+        $token = $this->requestToken();
+
+        $request = $this->createSellCorrectionRequest();
+
+        $response = $this->api->sellCorrection($this->getGroupCode(), $token, $request);
+
+        $this->assertNull($response->getError());
+        $this->assertNotNull($response->getUuid());
+        $this->assertInstanceOf(\DateTimeInterface::class, $response->getTimestamp());
+        $this->assertEquals(RegisterStatus::WAIT(), $response->getStatus());
+    }
+
+    final public function testSellCorrectionWithInvalidRequest(): void
+    {
+        $this->setUpTestSellCorrectionWithInvalidRequest();
+
+        $token = $this->requestToken();
+
+        $request = $this->createInvalidSellCorrectionRequest();
+
+        $response = $this->api->sellCorrection($this->getGroupCode(), $token, $request);
 
         $this->assertNotNull($response->getError());
         $this->assertNull($response->getUuid());
@@ -226,6 +270,37 @@ abstract class AtolApiTestCase extends TestCase
         return $response->getToken();
     }
 
+    private function createSellCorrectionRequest(): CorrectionRequest
+    {
+        return new CorrectionRequest(
+            'test-' . md5((string) microtime(true)),
+            new Correction(
+                new Company(
+                    'test@test.ru',
+                    '5544332219',
+                    'https://v4.online.atol.ru'
+                ),
+                new CorrectionInfo(
+                    CorrectionType::SELF(),
+                    new \DateTime(),
+                    'num1',
+                    'Что-то поправлено'
+                ),
+                [
+                    new Payment(
+                        PaymentType::ELECTRONIC(),
+                        1000.1
+                    ),
+                ],
+                [new Vat(
+                    VatType::VAT120(),
+                    166.68
+                )]
+            ),
+            new \DateTime()
+        );
+    }
+
     private function createRegisterRequest(): RegisterRequest
     {
         return new RegisterRequest(
@@ -319,4 +394,13 @@ abstract class AtolApiTestCase extends TestCase
             new \DateTime()
         );
     }
+
+    private function createInvalidSellCorrectionRequest(): CorrectionRequest
+    {
+        $r = $this->createSellCorrectionRequest();
+        $correction = $r->getCorrection()->setVats([]);
+
+        return $r->setCorrection($correction);
+    }
+
 }

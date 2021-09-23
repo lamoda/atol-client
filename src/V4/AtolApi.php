@@ -7,6 +7,8 @@ namespace Lamoda\AtolClient\V4;
 use Lamoda\AtolClient\Converter\ObjectConverter;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
+use Lamoda\AtolClient\V4\DTO\Correction\CorrectionRequest;
+use Lamoda\AtolClient\V4\DTO\Correction\CorrectionResponse;
 use Lamoda\AtolClient\V4\DTO\GetToken\GetTokenRequest;
 use Lamoda\AtolClient\V4\DTO\GetToken\GetTokenResponse;
 use Lamoda\AtolClient\V4\DTO\Register\RegisterRequest;
@@ -17,6 +19,7 @@ final class AtolApi
 {
     private const OPERATION_SELL = 'sell';
     private const OPERATION_SELL_REFUND = 'sell_refund';
+    private const OPERATION_SELL_CORRECTION = 'sell_correction';
 
     /**
      * @var ClientInterface
@@ -67,6 +70,11 @@ final class AtolApi
         return $this->register(self::OPERATION_SELL_REFUND, $groupCode, $token, $request);
     }
 
+    public function sellCorrection(string $groupCode, string $token, CorrectionRequest $request): CorrectionResponse
+    {
+        return $this->correction(self::OPERATION_SELL_CORRECTION, $groupCode, $token, $request);
+    }
+
     public function report(string $groupCode, string $token, string $uuid): ReportResponse
     {
         $response = $this->request(
@@ -80,6 +88,25 @@ final class AtolApi
         );
 
         return $this->converter->getResponseObject(ReportResponse::class, $response);
+    }
+
+    private function correction(
+        string $operation,
+        string $groupCode,
+        string $token,
+        CorrectionRequest $request
+    ): CorrectionResponse {
+        $response = $this->request(
+            'POST',
+            "$groupCode/$operation",
+            [],
+            $request,
+            [
+                'Token' => $token,
+            ]
+        );
+
+        return $this->converter->getResponseObject(CorrectionResponse::class, $response);
     }
 
     private function register(
