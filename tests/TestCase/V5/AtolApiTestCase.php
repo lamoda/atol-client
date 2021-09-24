@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Lamoda\AtolClient\Tests\TestCase\V5;
 
+use Lamoda\AtolClient\V5\DTO\Correction\Correction;
+use Lamoda\AtolClient\V5\DTO\Correction\CorrectionInfo;
+use Lamoda\AtolClient\V5\DTO\Correction\CorrectionRequest;
+use Lamoda\AtolClient\V5\DTO\Correction\CorrectionType;
 use Lamoda\AtolClient\V5\AtolApi;
 use Lamoda\AtolClient\V5\DTO\GetToken\GetTokenRequest;
 use Lamoda\AtolClient\V5\DTO\Register\AgentInfo;
@@ -18,6 +22,7 @@ use Lamoda\AtolClient\V5\DTO\Register\PaymentMethod;
 use Lamoda\AtolClient\V5\DTO\Register\PaymentObject;
 use Lamoda\AtolClient\V5\DTO\Register\PaymentType;
 use Lamoda\AtolClient\V5\DTO\Register\Receipt;
+use Lamoda\AtolClient\V5\DTO\Register\ReceivePaymentsOperator;
 use Lamoda\AtolClient\V5\DTO\Register\RegisterRequest;
 use Lamoda\AtolClient\V5\DTO\Register\Sno;
 use Lamoda\AtolClient\V5\DTO\Register\Status as RegisterStatus;
@@ -50,6 +55,10 @@ abstract class AtolApiTestCase extends TestCase
     abstract protected function setUpTestSell(): void;
 
     abstract protected function setUpTestSellWithInvalidRequest(): void;
+
+    abstract protected function setUpTestSellCorrection(): void;
+
+    abstract protected function setUpTestSellCorrectionWithInvalidRequest(): void;
 
     abstract protected function setUpTestSellRefund(): void;
 
@@ -128,6 +137,42 @@ abstract class AtolApiTestCase extends TestCase
         $request = $this->createInvalidRegisterRequest();
 
         $response = $this->api->sell($this->getGroupCode(), $token, $request);
+
+        $this->assertNotNull($response->getError());
+        $this->assertNull($response->getUuid());
+        $this->assertInstanceOf(\DateTimeInterface::class, $response->getTimestamp());
+        $this->assertEquals(RegisterStatus::FAIL(), $response->getStatus());
+
+        $error = $response->getError();
+
+        $this->assertEquals(32, $error->getCode());
+    }
+
+    final public function testSellCorrection(): void
+    {
+        $this->setUpTestSellCorrection();
+
+        $token = $this->requestToken();
+
+        $request = $this->createSellCorrectionRequest();
+
+        $response = $this->api->sellCorrection($this->getGroupCode(), $token, $request);
+
+        $this->assertNull($response->getError());
+        $this->assertNotNull($response->getUuid());
+        $this->assertInstanceOf(\DateTimeInterface::class, $response->getTimestamp());
+        $this->assertEquals(RegisterStatus::WAIT(), $response->getStatus());
+    }
+
+    final public function testSellCorrectionWithInvalidRequest(): void
+    {
+        $this->setUpTestSellCorrectionWithInvalidRequest();
+
+        $token = $this->requestToken();
+
+        $request = $this->createInvalidSellCorrectionRequest();
+
+        $response = $this->api->sellCorrection($this->getGroupCode(), $token, $request);
 
         $this->assertNotNull($response->getError());
         $this->assertNull($response->getUuid());
@@ -269,6 +314,9 @@ abstract class AtolApiTestCase extends TestCase
                                     'test',
                                     ['+79101234567']
                                 ))
+                                ->setReceivePaymentsOperator(new ReceivePaymentsOperator(
+                                    ['+79101234567']
+                                ))
                         )
                         ->setSupplierInfo(
                             new SupplierInfo(
@@ -281,10 +329,10 @@ abstract class AtolApiTestCase extends TestCase
                 [
                     new Payment(
                         PaymentType::ELECTRONIC(),
-                        1500.1
+                        1000.1
                     ),
                 ],
-                1500.1
+                1000.1
             ),
             new \DateTime()
         );
@@ -331,4 +379,58 @@ abstract class AtolApiTestCase extends TestCase
             new \DateTime()
         );
     }
+
+    private function createSellCorrectionRequest(): CorrectionRequest
+    {
+        return new CorrectionRequest(
+            'test-' . md5((string) microtime(true)),
+            new Correction(
+                new Company(
+                    'test@test.ru',
+                    '5544332219',
+                    'https://v4.online.atol.ru',
+                    Sno::OSN()
+                ),
+                (new CorrectionInfo(
+                    CorrectionType::SELF()
+                )),
+                [
+                    new Item(
+                        'Test item',
+                        1000.1,
+                        1,
+                        1000.1,
+                        PaymentMethod::FULL_PAYMENT(),
+                        new Vat(
+                            VatType::VAT120(),
+                            166.68
+                        ),
+                        Measure::PIECE(),
+                        PaymentObject::COMMODITY()
+                    ),
+                ],
+                [
+                    new Payment(
+                        PaymentType::ELECTRONIC(),
+                        1000.1
+                    ),
+                ],
+                [new Vat(
+                    VatType::VAT120(),
+                    166.68
+                )],
+                1000.1
+            ),
+            new \DateTime()
+        );
+    }
+
+    private function createInvalidSellCorrectionRequest(): CorrectionRequest
+    {
+        $r = $this->createSellCorrectionRequest();
+        $correction = $r->getCorrection()->setVats([]);
+
+        return $r->setCorrection($correction);
+    }
+
 }

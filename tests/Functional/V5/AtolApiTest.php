@@ -102,6 +102,19 @@ final class AtolApiTest extends AtolApiTestCase
         $this->appendErrorRegisterResponse();
     }
 
+    protected function setUpTestSellCorrection(): void
+    {
+        $this->appendSuccessTokenResponse();
+        $this->appendSuccessCorrectionResponse();
+    }
+
+    protected function setUpTestSellCorrectionWithInvalidRequest(): void
+    {
+        $this->appendSuccessTokenResponse();
+        $this->appendErrorRegisterResponse();
+    }
+
+
     protected function setUpTestSellRefund(): void
     {
         $this->appendSuccessTokenResponse();
@@ -155,6 +168,21 @@ JSON
     }
 
     private function appendSuccessRegisterResponse(): void
+    {
+        $this->mockHandler->append(
+            new Response(200, [], <<<JSON
+{
+  "uuid": "1c9de7c1-3501-4d90-abf2-c78cde3ef33c",
+  "status": "wait",
+  "error": null,
+  "timestamp": "03.08.2018 23:18:28"
+}
+JSON
+            )
+        );
+    }
+
+    private function appendSuccessCorrectionResponse(): void
     {
         $this->mockHandler->append(
             new Response(200, [], <<<JSON
