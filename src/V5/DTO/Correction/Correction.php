@@ -204,7 +204,7 @@ final class Correction
         return $this;
     }
 
-    public function getCashier(): string
+    public function getCashier(): ?string
     {
         return $this->cashier;
     }
