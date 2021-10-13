@@ -31,20 +31,11 @@ final class CorrectionInfo
      */
     private $baseNumber;
 
-    /**
-     * @var string
-     *
-     * @Serializer\Type("string")
-     * @Serializer\SerializedName("base_name")
-     */
-    private $baseName;
-
-    public function __construct(CorrectionType $type, \DateTime $baseDate, string $baseNumber, string $baseName)
+    public function __construct(CorrectionType $type, \DateTime $baseDate, string $baseNumber)
     {
         $this->type = $type;
         $this->baseDate = $baseDate;
         $this->baseNumber = $baseNumber;
-        $this->baseName = $baseName;
     }
 
     public function getType(): CorrectionType
@@ -79,18 +70,6 @@ final class CorrectionInfo
     public function setBaseNumber(string $baseNumber): self
     {
         $this->baseNumber = $baseNumber;
-
-        return $this;
-    }
-
-    public function getBaseName(): string
-    {
-        return $this->baseName;
-    }
-
-    public function setBaseName(string $baseName): self
-    {
-        $this->baseName = $baseName;
 
         return $this;
     }
