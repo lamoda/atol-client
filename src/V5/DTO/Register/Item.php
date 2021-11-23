@@ -39,7 +39,7 @@ final class Item
     /**
      * @var Measure
      *
-     * @Serializer\Type("Enum<'Lamoda\AtolClient\V5\DTO\Register\Measure'>")
+     * @Serializer\Type("Enum<'Lamoda\AtolClient\V5\DTO\Register\Measure', 'integer'>")
      * @Serializer\SerializedName("measure")
      */
     private $measure;
