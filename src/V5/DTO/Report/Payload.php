@@ -7,9 +7,9 @@ use JMS\Serializer\Annotation as Serializer;
 class Payload
 {
     /**
-     * @var string
+     * @var int
      *
-     * @Serializer\Type("string")
+     * @Serializer\Type("integer")
      */
     private $fiscalReceiptNumber;
 
