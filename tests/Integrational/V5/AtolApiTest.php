@@ -28,9 +28,9 @@ final class AtolApiTest extends AtolApiTestCase
     {
         parent::setUp();
 
-        $this->login = getenv('ATOL_API_V5_TEST_ATOL_LOGIN');
-        $this->password = getenv('ATOL_API_V5_TEST_ATOL_PASSWORD');
-        $this->groupCode = getenv('ATOL_API_V5_TEST_ATOL_GROUP_CODE');
+        $this->login = getenv('ATOL_API_V5_TEST_LOGIN');
+        $this->password = getenv('ATOL_API_V5_TEST_PASSWORD');
+        $this->groupCode = getenv('ATOL_API_V5_TEST_GROUP_CODE');
 
         if (
             empty($this->login)
@@ -38,9 +38,9 @@ final class AtolApiTest extends AtolApiTestCase
             || empty($this->groupCode)
         ) {
             $this->markTestSkipped(
-                'Envs ATOL_API_V5_TEST_ATOL_LOGIN, ' .
-                'ATOL_API_V5_TEST_ATOL_PASSWORD and ' .
-                'ATOL_API_V5_TEST_ATOL_GROUP_CODE must be defined'
+                'Envs ATOL_API_V5_TEST_LOGIN, ' .
+                'ATOL_API_V5_TEST_PASSWORD and ' .
+                'ATOL_API_V5_TEST_GROUP_CODE must be defined'
             );
         }
     }

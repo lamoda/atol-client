@@ -15,6 +15,7 @@ use Lamoda\AtolClient\V5\DTO\Register\AgentType;
 use Lamoda\AtolClient\V5\DTO\Register\Client as ClientDto;
 use Lamoda\AtolClient\V5\DTO\Register\Company;
 use Lamoda\AtolClient\V5\DTO\Register\Item;
+use Lamoda\AtolClient\V5\DTO\Register\MarkCode;
 use Lamoda\AtolClient\V5\DTO\Register\Measure;
 use Lamoda\AtolClient\V5\DTO\Register\PayingAgent;
 use Lamoda\AtolClient\V5\DTO\Register\Payment;
@@ -324,7 +325,8 @@ abstract class AtolApiTestCase extends TestCase
                                 'Test supplier',
                                 '7705935687'
                             )
-                        ),
+                        )
+                        ->setMarkCode(new MarkCode(base64_encode('test_mark_code'), MarkCode::GS1M)),
                 ],
                 [
                     new Payment(
