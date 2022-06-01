@@ -86,7 +86,7 @@ final class Item
     /**
      * @var MarkCode|null
      *
-     * @Serializer\Type("string")
+     * @Serializer\Type("Lamoda\AtolClient\V5\DTO\Register\MarkCode")
      * @Serializer\SerializedName("mark_code")
      */
     private $markCode;
