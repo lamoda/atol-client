@@ -84,6 +84,14 @@ final class Item
     private $supplierInfo;
 
     /**
+     * @var MarkCode|null
+     *
+     * @Serializer\Type("string")
+     * @Serializer\SerializedName("mark_code")
+     */
+    private $markCode;
+
+    /**
      * @var string|null
      *
      * @Serializer\Type("string")
@@ -109,6 +117,19 @@ final class Item
         $this->measure = $measure;
         $this->paymentObject = $paymentObject;
     }
+
+    public function getMarkCode(): ?MarkCode
+    {
+        return $this->markCode;
+    }
+
+    public function setMarkCode(?MarkCode $markCode): self
+    {
+        $this->markCode = $markCode;
+
+        return $this;
+    }
+
 
     public function getName(): string
     {
