@@ -93,7 +93,11 @@ final class MarkCode
      */
     private $egais30;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @Serializer\Exclude()
+     */
     private $format;
 
     public function __construct(string $value, string $format)
