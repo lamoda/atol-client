@@ -25,19 +25,18 @@ use Paillechat\Enum\Exception\EnumException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class AtolApiTest extends TestCase
 {
-    /**
-     * @var AtolApi
-     */
-    private $api;
+    private AtolApi $api;
+
     /**
      * @var ClientInterface | MockObject
      */
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -157,26 +156,26 @@ JSON
         $this->callRegister($register, $validRequest);
     }
 
-    /**
-     * @expectedException \GuzzleHttp\Exception\ClientException
-     */
     public function testGuzzleException(): void
     {
         $this->client
             ->method('send')
             ->willThrowException($this->createMock(ClientException::class));
 
+
+        $this->expectException(ClientException::class);
+
         $this->api->sell($this->createSellRequest());
     }
 
     /**
      * @dataProvider getRegisterProvider
-     *
-     * @expectedException \Lamoda\AtolClient\Exception\ValidationException
-     * @expectedExceptionMessage Object should contain either phone or email.
      */
     public function testRegisterRequestException(Closure $register): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('Object should contain either phone or email.');
+
         $invalidRequest = $this->createSellRequest(true);
         $this->callRegister($register, $invalidRequest);
     }
@@ -211,9 +210,14 @@ JSON
         $this->client
             ->method('send')
             ->willReturn($response);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->method('__toString')
+            ->willReturn($body);
+
         $response
             ->method('getBody')
-            ->willReturn($body);
+            ->willReturn($stream);
     }
 
     private function callRegister(Closure $register, SellRequest $request): SellResponse

@@ -36,10 +36,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class AtolApiTestCase extends TestCase
 {
-    /**
-     * @var AtolApi
-     */
-    private $api;
+    private AtolApi $api;
 
     abstract protected function createApi(): AtolApi;
 
@@ -67,7 +64,7 @@ abstract class AtolApiTestCase extends TestCase
 
     abstract protected function setUpTestReport(): void;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

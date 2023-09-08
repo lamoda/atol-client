@@ -11,20 +11,13 @@ use Lamoda\AtolClient\V5\AtolApi;
 
 final class AtolApiTest extends AtolApiTestCase
 {
-    /**
-     * @var string
-     */
-    private $login;
-    /**
-     * @var string
-     */
-    private $password;
-    /**
-     * @var string
-     */
-    private $groupCode;
+    private string $login;
 
-    protected function setUp()
+    private string $password;
+
+    private string $groupCode;
+
+    protected function setUp(): void
     {
         parent::setUp();
 

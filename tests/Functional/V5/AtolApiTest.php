@@ -14,15 +14,9 @@ use Lamoda\AtolClient\V5\AtolApi;
 
 final class AtolApiTest extends AtolApiTestCase
 {
-    /**
-     * @var MockHandler
-     */
-    private $mockHandler;
+    private MockHandler $mockHandler;
 
-    /**
-     * @var AtolApi
-     */
-    private $api;
+    private AtolApi $api;
 
     public function testReportResponseFields(): void
     {
