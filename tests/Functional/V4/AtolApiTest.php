@@ -14,10 +14,7 @@ use Lamoda\AtolClient\V4\AtolApi;
 
 final class AtolApiTest extends AtolApiTestCase
 {
-    /**
-     * @var MockHandler
-     */
-    private $mockHandler;
+    private MockHandler $mockHandler;
 
     /**
      * @var AtolApi

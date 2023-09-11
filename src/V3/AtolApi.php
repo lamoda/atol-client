@@ -2,6 +2,7 @@
 
 namespace Lamoda\AtolClient\V3;
 
+use GuzzleHttp\Psr7\Query;
 use Lamoda\AtolClient\Converter\ObjectConverter;
 use Lamoda\AtolClient\Exception\ParseException;
 use Lamoda\AtolClient\Exception\ValidationException;
@@ -15,7 +16,6 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\build_query;
 
 /**
  * API to interact with ATOL.
@@ -164,13 +164,12 @@ class AtolApi
      */
     private function request(string $method, string $path, array $query = [], $body = null): string
     {
-        // Prepare request:
-        $query = build_query($query);
+        $q = Query::build($query);
         $body = $this->parseBody($body);
         $path = trim($path, '/');
         $request = new Request(
             $method,
-            "{$this->baseUri}/v3/$path/?$query",
+            "{$this->baseUri}/v3/$path/?$q",
             ['Content-Type' => 'application/json'],
             $body
         );

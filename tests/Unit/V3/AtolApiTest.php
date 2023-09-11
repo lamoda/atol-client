@@ -16,6 +16,7 @@ use PHPUnit\Framework\Constraint\Callback;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * @group unit
@@ -71,10 +72,15 @@ class AtolApiTest extends TestCase
             ->method('send')
             ->with($this->sameRequestCallback($clientRequest), $this->expectedClientOptions)
             ->willReturn($clientResponse);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->method('__toString')
+            ->willReturn($clientResponseBody);
+
         $clientResponse
             ->expects($this->once())
             ->method('getBody')
-            ->willReturn($clientResponseBody);
+            ->willReturn($stream);
         $this->converter
             ->expects($this->once())
             ->method('getResponseObject')
@@ -123,10 +129,15 @@ class AtolApiTest extends TestCase
             ->method('send')
             ->with($this->sameRequestCallback($clientRequest), $this->expectedClientOptions)
             ->willReturn($clientResponse);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->method('__toString')
+            ->willReturn($clientResponseBody);
+
         $clientResponse
             ->expects($this->once())
             ->method('getBody')
-            ->willReturn($clientResponseBody);
+            ->willReturn($stream);
 
         /* @see AtolApi::register */
         $this->converter
@@ -171,10 +182,15 @@ class AtolApiTest extends TestCase
             ->method('send')
             ->with($this->sameRequestCallback($clientRequest), $this->expectedClientOptions)
             ->willReturn($clientResponse);
+
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->method('__toString')
+            ->willReturn($clientResponseBody);
+
         $clientResponse
             ->expects($this->once())
             ->method('getBody')
-            ->willReturn($clientResponseBody);
+            ->willReturn($stream);
 
         /* @see AtolApi::report */
         $this->converter

@@ -14,15 +14,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class ObjectConverter
 {
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
+    private SerializerInterface $serializer;
 
-    /**
-     * @var ValidatorInterface
-     */
-    private $validator;
+    private ValidatorInterface $validator;
 
     public function __construct(
         SerializerInterface $serializer,

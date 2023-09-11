@@ -1,5 +1,5 @@
 # ATOL PHP Client
-ATOL API v3/v4 client for PHP
+ATOL API v3/v4/v5 client for PHP
 
 https://online.atol.ru/
 
