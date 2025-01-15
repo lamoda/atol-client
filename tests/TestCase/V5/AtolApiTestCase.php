@@ -62,6 +62,10 @@ abstract class AtolApiTestCase extends TestCase
 
     abstract protected function setUpTestSellRefundWithInvalidRequest(): void;
 
+    abstract protected function setUpTestSellRefundCorrection(): void;
+
+    abstract protected function setUpTestSellRefundCorrectionWithInvalidRequest(): void;
+
     abstract protected function setUpTestReport(): void;
 
     protected function setUp(): void
@@ -152,7 +156,7 @@ abstract class AtolApiTestCase extends TestCase
 
         $token = $this->requestToken();
 
-        $request = $this->createSellCorrectionRequest();
+        $request = $this->createCorrectionRequest();
 
         $response = $this->api->sellCorrection($this->getGroupCode(), $token, $request);
 
@@ -168,7 +172,7 @@ abstract class AtolApiTestCase extends TestCase
 
         $token = $this->requestToken();
 
-        $request = $this->createInvalidSellCorrectionRequest();
+        $request = $this->createInvalidCorrectionRequest();
 
         $response = $this->api->sellCorrection($this->getGroupCode(), $token, $request);
 
@@ -210,6 +214,42 @@ abstract class AtolApiTestCase extends TestCase
         $this->assertNotNull($response->getError());
         $this->assertNull($response->getUuid());
         $this->assertInstanceOf(\DateTimeInterface::class, $response->getTimestamp());
+
+        $error = $response->getError();
+
+        $this->assertEquals(32, $error->getCode());
+    }
+
+    final public function testSellRefundCorrection(): void
+    {
+        $this->setUpTestSellRefundCorrection();
+
+        $token = $this->requestToken();
+
+        $request = $this->createCorrectionRequest();
+
+        $response = $this->api->sellRefundCorrection($this->getGroupCode(), $token, $request);
+
+        $this->assertNull($response->getError());
+        $this->assertNotNull($response->getUuid());
+        $this->assertInstanceOf(\DateTimeInterface::class, $response->getTimestamp());
+        $this->assertEquals(RegisterStatus::WAIT(), $response->getStatus());
+    }
+
+    final public function testSellRefundCorrectionWithInvalidRequest(): void
+    {
+        $this->setUpTestSellRefundCorrectionWithInvalidRequest();
+
+        $token = $this->requestToken();
+
+        $request = $this->createInvalidCorrectionRequest();
+
+        $response = $this->api->sellCorrection($this->getGroupCode(), $token, $request);
+
+        $this->assertNotNull($response->getError());
+        $this->assertNull($response->getUuid());
+        $this->assertInstanceOf(\DateTimeInterface::class, $response->getTimestamp());
+        $this->assertEquals(RegisterStatus::FAIL(), $response->getStatus());
 
         $error = $response->getError();
 
@@ -379,8 +419,13 @@ abstract class AtolApiTestCase extends TestCase
         );
     }
 
-    private function createSellCorrectionRequest(): CorrectionRequest
+    private function createCorrectionRequest(): CorrectionRequest
     {
+        $correctionInfo = new CorrectionInfo(
+            CorrectionType::SELF()
+        );
+        $correctionInfo->setBaseDate(new \DateTime());
+
         return new CorrectionRequest(
             'test-' . md5((string) microtime(true)),
             new Correction(
@@ -390,9 +435,7 @@ abstract class AtolApiTestCase extends TestCase
                     'https://v4.online.atol.ru',
                     Sno::OSN()
                 ),
-                (new CorrectionInfo(
-                    CorrectionType::SELF()
-                )),
+                $correctionInfo,
                 [
                     new Item(
                         'Test item',
@@ -424,9 +467,9 @@ abstract class AtolApiTestCase extends TestCase
         );
     }
 
-    private function createInvalidSellCorrectionRequest(): CorrectionRequest
+    private function createInvalidCorrectionRequest(): CorrectionRequest
     {
-        $r = $this->createSellCorrectionRequest();
+        $r = $this->createCorrectionRequest();
         $correction = $r->getCorrection()->setVats([]);
 
         return $r->setCorrection($correction);
