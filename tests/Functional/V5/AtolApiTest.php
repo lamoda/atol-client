@@ -121,6 +121,18 @@ final class AtolApiTest extends AtolApiTestCase
         $this->appendErrorRegisterResponse();
     }
 
+    protected function setUpTestSellRefundCorrection(): void
+    {
+        $this->appendSuccessTokenResponse();
+        $this->appendSuccessRegisterResponse();
+    }
+
+    protected function setUpTestSellRefundCorrectionWithInvalidRequest(): void
+    {
+        $this->appendSuccessTokenResponse();
+        $this->appendErrorRegisterResponse();
+    }
+
     protected function setUpTestReport(): void
     {
         $this->appendSuccessTokenResponse();

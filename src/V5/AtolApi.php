@@ -20,6 +20,7 @@ final class AtolApi
     private const OPERATION_SELL = 'sell';
     private const OPERATION_SELL_REFUND = 'sell_refund';
     private const OPERATION_SELL_CORRECTION = 'sell_correction';
+    private const OPERATION_SELL_REFUND_CORRECTION = 'sell_refund_correction';
 
     /**
      * @var ClientInterface
@@ -73,6 +74,11 @@ final class AtolApi
     public function sellCorrection(string $groupCode, string $token, CorrectionRequest $request): CorrectionResponse
     {
         return $this->correction(self::OPERATION_SELL_CORRECTION, $groupCode, $token, $request);
+    }
+
+    public function sellRefundCorrection(string $groupCode, string $token, CorrectionRequest $request): CorrectionResponse
+    {
+        return $this->correction(self::OPERATION_SELL_REFUND_CORRECTION, $groupCode, $token, $request);
     }
 
     public function report(string $groupCode, string $token, string $uuid): ReportResponse
