@@ -98,6 +98,14 @@ final class Item
      */
     private $userData;
 
+    /**
+     * @var string|null
+     *
+     * @Serializer\Type("Lamoda\AtolClient\V5\DTO\Register\SectoralItemProps")
+     * @Serializer\SerializedName("sectoral_item_props")
+     */
+    private $sectoralItemProps = null;
+
     public function __construct(
         string $name,
         float $price,
@@ -259,6 +267,24 @@ final class Item
     public function setUserData(?string $userData): self
     {
         $this->userData = $userData;
+
+        return $this;
+    }
+
+    /**
+     * @return SectoralItemProps|null
+     */
+    public function getSectoralItemProps(): ?SectoralItemProps
+    {
+        return $this->sectoralItemProps;
+    }
+
+    /**
+     * @param SectoralItemProps $sectoralItemProps
+     */
+    public function setSectoralItemProps(?SectoralItemProps $sectoralItemProps): self
+    {
+        $this->sectoralItemProps = $sectoralItemProps;
 
         return $this;
     }
