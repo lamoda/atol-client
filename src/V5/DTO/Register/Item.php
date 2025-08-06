@@ -99,9 +99,9 @@ final class Item
     private $userData;
 
     /**
-     * @var string|null
+     * @var SectoralItemProp[]|null
      *
-     * @Serializer\Type("Lamoda\AtolClient\V5\DTO\Register\SectoralItemProps")
+     * @Serializer\Type("array<Lamoda\AtolClient\V5\DTO\Register\SectoralItemProp>")
      * @Serializer\SerializedName("sectoral_item_props")
      */
     private $sectoralItemProps = null;
@@ -272,17 +272,17 @@ final class Item
     }
 
     /**
-     * @return SectoralItemProps|null
+     * @return SectoralItemProp[]|null
      */
-    public function getSectoralItemProps(): ?SectoralItemProps
+    public function getSectoralItemProps(): ?array
     {
         return $this->sectoralItemProps;
     }
 
     /**
-     * @param SectoralItemProps $sectoralItemProps
+     * @param SectoralItemProp[] $sectoralItemProps
      */
-    public function setSectoralItemProps(?SectoralItemProps $sectoralItemProps): self
+    public function setSectoralItemProps(?array $sectoralItemProps): self
     {
         $this->sectoralItemProps = $sectoralItemProps;
 

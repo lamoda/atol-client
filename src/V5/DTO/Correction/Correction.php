@@ -96,14 +96,6 @@ final class Correction
     private $operatingCheckProps;
 
     /**
-     * @var SectoralCheckProps|null
-     *
-     * @Serializer\Type("Lamoda\AtolClient\V5\DTO\Correction\SectoralCheckProps")
-     * @Serializer\SerializedName("sectoral_check_props")
-     */
-    private $sectoralCheckProps;
-
-    /**
      * @var float
      *
      * @Serializer\Type("float")
@@ -281,18 +273,6 @@ final class Correction
     public function setOperatingCheckProps(?OperatingCheckProps $operatingCheckProps): self
     {
         $this->operatingCheckProps = $operatingCheckProps;
-
-        return $this;
-    }
-
-    public function getSectoralCheckProps(): ?SectoralCheckProps
-    {
-        return $this->sectoralCheckProps;
-    }
-
-    public function setSectoralCheckProps(?SectoralCheckProps $sectoralCheckProps): self
-    {
-        $this->sectoralCheckProps = $sectoralCheckProps;
 
         return $this;
     }
