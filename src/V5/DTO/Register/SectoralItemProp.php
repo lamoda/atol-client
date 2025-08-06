@@ -6,7 +6,7 @@ namespace Lamoda\AtolClient\V5\DTO\Register;
 
 use JMS\Serializer\Annotation as Serializer;
 
-final class SectoralItemProps
+final class SectoralItemProp
 {
     /**
      * @var string
