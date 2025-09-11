@@ -51,6 +51,20 @@ final class Receipt
     private $total;
 
     /**
+     * @var int|null
+     *
+     * @Serializer\Type("int")
+     */
+    private $timezone;
+
+    /**
+     * @var bool|null
+     *
+     * @Serializer\Type("bool")
+     */
+    private $internet;
+
+    /**
      * @param Client $client
      * @param Company $company
      * @param Item[] $items
@@ -158,6 +172,30 @@ final class Receipt
     public function setTotal(float $total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getTimezone(): ?int
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone(?int $timezone): self
+    {
+        $this->timezone = $timezone;
+
+        return $this;
+    }
+
+    public function getInternet(): ?bool
+    {
+        return $this->internet;
+    }
+
+    public function setInternet(?bool $internet): self
+    {
+        $this->internet = $internet;
 
         return $this;
     }
