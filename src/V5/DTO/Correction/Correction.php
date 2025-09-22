@@ -102,6 +102,20 @@ final class Correction
      */
     private $total;
 
+    /**
+     * @var int|null
+     *
+     * @Serializer\Type("int")
+     */
+    private $timezone;
+
+    /**
+     * @var bool|null
+     *
+     * @Serializer\Type("bool")
+     */
+    private $internet;
+
     public function __construct(Company $company, CorrectionInfo $correctionInfo, array $items, array $payments, array $vats, float $total)
     {
         $this->company = $company;
@@ -285,6 +299,30 @@ final class Correction
     public function setTotal(float $total): self
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    public function getTimezone(): ?int
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone(?int $timezone): self
+    {
+        $this->timezone = $timezone;
+
+        return $this;
+    }
+
+    public function getInternet(): ?bool
+    {
+        return $this->internet;
+    }
+
+    public function setInternet(?bool $internet): self
+    {
+        $this->internet = $internet;
 
         return $this;
     }
