@@ -29,9 +29,11 @@ final class VatType extends Enum
     protected const VAT10 = 'vat10';
     protected const VAT18 = 'vat18';
     protected const VAT20 = 'vat20';
+    protected const VAT22 = 'vat22';
     protected const VAT105 = 'vat105';
     protected const VAT107 = 'vat107';
     protected const VAT110 = 'vat110';
     protected const VAT118 = 'vat118';
     protected const VAT120 = 'vat120';
+    protected const VAT122 = 'vat122';
 }
