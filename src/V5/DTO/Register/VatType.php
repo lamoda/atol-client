@@ -14,11 +14,13 @@ use Paillechat\Enum\Enum;
  * @method static self VAT10()
  * @method static self VAT18()
  * @method static self VAT20()
+ * @method static self VAT22()
  * @method static self VAT105()
  * @method static self VAT107()
  * @method static self VAT110()
  * @method static self VAT118()
  * @method static self VAT120()
+ * @method static self VAT122()
  */
 final class VatType extends Enum
 {
